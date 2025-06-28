@@ -93,7 +93,7 @@ To build a production-ready phishing scanner:
 
 ## 🔗 Project Link
 
-GitHub Repository: [https://github.com/your-username/phishing-url-scanner](https://github.com/your-username/phishing-url-scanner)
+GitHub Repository: [(https://github.com/EvaArbo/Project-One)]
 
 
 ## 📖 License
