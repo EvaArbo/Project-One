@@ -1,0 +1,34 @@
+{
+  "urls": [
+    {
+      "id": 1,
+      "domain": "phishingsite.com",
+      "verdict": "malicious"
+    },
+    {
+      "id": 2,
+      "domain": "unknown-domain.net",
+      "verdict": "suspicious"
+    },
+    {
+      "id": 3,
+      "domain": "www.google.com",
+      "verdict": "safe"
+    },
+    {
+      "id": 4,
+      "domain": "badactor.malware.biz",
+      "verdict": "malicious"
+    },
+    {
+      "id": 5,
+      "domain": "myshop.suspicious.store",
+      "verdict": "suspicious"
+    },
+    {
+      "id": 6,
+      "domain": "securelogin.safeweb.org",
+      "verdict": "safe"
+    }
+  ]
+}
