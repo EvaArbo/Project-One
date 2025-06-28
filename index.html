@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phishing Link Checker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>🔒 Phishing Link Checker</h1>
+      <p>Check if a link is suspicious, fake, or potentially malicious.</p>
+    </header>
+
+    <main>
+      <div class="input-section">
+        <input 
+          type="text" 
+          id="url-input" 
+          placeholder="Paste a URL (e.g. https://example.com)" 
+        />
+        <button id="check-btn">Check Link</button>
+      </div>
+
+      <div id="result-box" class="hidden">
+        <p id="result-message">Checking...</p>
+      </div>
+    </main>
+
+    <footer>
+      <p>Powered by <a href="https://urlscan.io" target="_blank">URLScan</a> API • Made by You 🚀</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
