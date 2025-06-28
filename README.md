@@ -24,6 +24,27 @@ This is a **practice project** to:
 | `https://myshop.suspicious.store`  | ⚠️ Suspicious  |
 
 
+
+## 🚀 Running the App Locally
+
+To run the project using `json-server`:
+
+1. Make sure you have `json-server` installed globally:
+   ```bash
+   npm install -g json-server
+   ```
+
+2. In your project directory, start the JSON server:
+   ```bash
+   json-server --watch db.json
+   ```
+
+3. Open the `index.html` file in your browser.
+
+The app will now fetch phishing verdicts from your local `db.json` through `http://localhost:3000/urls`.
+
+
+
 ## ❗ Why i Didn't Use a Real API
 
 ### 😡 The CORS Problem
