@@ -1,4 +1,3 @@
-
 # 🛡️ Phishing URL Scanner (Frontend + JSON Server)
 
 A phishing detection web app built with **HTML, CSS, JavaScript**, and **JSON Server**, designed to simulate how real-world phishing detection systems work — using a lightweight local JSON API instead of third-party APIs.
