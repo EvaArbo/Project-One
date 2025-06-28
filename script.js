@@ -3,28 +3,31 @@ const urlInput = document.getElementById("url-input");
 const resultBox = document.getElementById("result-box");
 const resultMessage = document.getElementById("result-message");
 
-const API_KEY = "0197b69c-0d80-75f5-a2e4-c0a180aa2183"; 
+// ✅ Use your IPQualityScore API key here
+const API_KEY = "0NY03yKIwJF99zilIfD8yaZUuEo1D5Hc";
 
+// 👂 Main event handler
 checkBtn.addEventListener("click", async () => {
   const inputURL = urlInput.value.trim();
+
   if (!isValidURL(inputURL)) {
     showResult("❌ Invalid URL format. Please enter a valid link.", "error");
     return;
   }
 
-  showResult("🔍 Submitting the URL for scanning...", "neutral");
+  showResult("🔍 Checking the URL...", "neutral");
 
   try {
     const scanResult = await fetchURLScanReport(inputURL);
+    const riskScore = scanResult.risk_score;
+    const unsafe = scanResult.unsafe;
 
-    const verdicts = scanResult.verdicts?.overall?.categories || [];
-
-    if (verdicts.includes("malicious")) {
-      showResult(`🚨 Warning! This domain has been marked as MALICIOUS.`, "error");
-    } else if (verdicts.length > 0) {
-      showResult(`⚠️ Caution: Verdict - ${verdicts.join(", ")}.`, "warning");
+    if (unsafe) {
+      showResult(`🚨 Warning! This link is UNSAFE. Risk Score: ${riskScore}/100`, "error");
+    } else if (riskScore > 40) {
+      showResult(`⚠️ Caution: Moderate risk. Score: ${riskScore}/100`, "warning");
     } else {
-      showResult("🟢 No malicious activity detected. The URL appears safe.", "success");
+      showResult("🟢 This URL appears safe to visit.", "success");
     }
   } catch (err) {
     console.error(err);
@@ -32,6 +35,9 @@ checkBtn.addEventListener("click", async () => {
   }
 });
 
+/**
+ * ✅ Validate URL structure
+ */
 function isValidURL(url) {
   try {
     new URL(url);
@@ -41,31 +47,25 @@ function isValidURL(url) {
   }
 }
 
-
+/**
+ * 🔍 Fetch scan report from IPQualityScore API
+ */
 async function fetchURLScanReport(url) {
+  const encodedURL = encodeURIComponent(url);
+  const endpoint = `https://ipqualityscore.com/api/json/url/${API_KEY}/${encodedURL}`;
 
-  const response = await fetch("https://urlscan.io/api/v1/scan/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "API-Key": API_KEY
-    },
-    body: JSON.stringify({ url, public: "on" })
-  });
+  const response = await fetch(endpoint);
+  if (!response.ok) {
+    throw new Error("Failed to fetch scan results");
+  }
 
   const data = await response.json();
-  const resultApiUrl = data.api;
-
-
-  await new Promise(resolve => setTimeout(resolve, 8000));
-
-  const resultResponse = await fetch(resultApiUrl);
-  const resultData = await resultResponse.json();
-  return resultData;
+  return data;
 }
 
-
- 
+/**
+ * 🎯 Display result with color/status
+ */
 function showResult(message, status) {
   resultBox.classList.remove("hidden", "result-success", "result-warning", "result-error");
 
