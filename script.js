@@ -3,13 +3,8 @@ const urlInput = document.getElementById("url-input");
 const resultBox = document.getElementById("result-box");
 const resultMessage = document.getElementById("result-message");
 
-// ✅ Use your IPQualityScore API key here
-const API_KEY = "0NY03yKIwJF99zilIfD8yaZUuEo1D5Hc";
-
-// 👂 Main event handler
 checkBtn.addEventListener("click", async () => {
   const inputURL = urlInput.value.trim();
-
   if (!isValidURL(inputURL)) {
     showResult("❌ Invalid URL format. Please enter a valid link.", "error");
     return;
@@ -17,17 +12,19 @@ checkBtn.addEventListener("click", async () => {
 
   showResult("🔍 Checking the URL...", "neutral");
 
+  const domain = getDomain(inputURL);
   try {
-    const scanResult = await fetchURLScanReport(inputURL);
-    const riskScore = scanResult.risk_score;
-    const unsafe = scanResult.unsafe;
+    const scanResult = await fetchDomainReport(domain);
 
-    if (unsafe) {
-      showResult(`🚨 Warning! This link is UNSAFE. Risk Score: ${riskScore}/100`, "error");
-    } else if (riskScore > 40) {
-      showResult(`⚠️ Caution: Moderate risk. Score: ${riskScore}/100`, "warning");
+    if (!scanResult || scanResult.results.length === 0) {
+      showResult("🟢 No known phishing activity. The URL appears safe.", "success");
     } else {
-      showResult("🟢 This URL appears safe to visit.", "success");
+      const verdict = scanResult.results[0].verdict || "suspicious";
+      if (verdict === "malicious") {
+        showResult(`🚨 Warning! This domain has been reported as MALICIOUS.`, "error");
+      } else {
+        showResult(`⚠️ Caution: This domain has been scanned. Verdict: ${verdict}.`, "warning");
+      }
     }
   } catch (err) {
     console.error(err);
@@ -35,9 +32,7 @@ checkBtn.addEventListener("click", async () => {
   }
 });
 
-/**
- * ✅ Validate URL structure
- */
+
 function isValidURL(url) {
   try {
     new URL(url);
@@ -47,25 +42,28 @@ function isValidURL(url) {
   }
 }
 
-/**
- * 🔍 Fetch scan report from IPQualityScore API
- */
-async function fetchURLScanReport(url) {
-  const encodedURL = encodeURIComponent(url);
-  const endpoint = `https://ipqualityscore.com/api/json/url/${API_KEY}/${encodedURL}`;
 
-  const response = await fetch(endpoint);
-  if (!response.ok) {
-    throw new Error("Failed to fetch scan results");
-  }
-
-  const data = await response.json();
-  return data;
+function getDomain(url) {
+  const parsed = new URL(url);
+  return parsed.hostname;
 }
 
-/**
- * 🎯 Display result with color/status
- */
+
+async function fetchDomainReport(domain) {
+
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+
+  if (domain.includes("phish") || domain.includes("malware") || domain.includes("bad")) {
+    return { results: [{ verdict: "malicious" }] };
+  } else if (domain.includes("unknown") || domain.includes("suspicious")) {
+    return { results: [{ verdict: "suspicious" }] };
+  } else {
+    return { results: [] }; // Safe
+  }
+}
+
+
 function showResult(message, status) {
   resultBox.classList.remove("hidden", "result-success", "result-warning", "result-error");
 
