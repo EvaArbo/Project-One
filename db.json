@@ -1,4 +1,30 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "user",
+      "password": "user123",
+      "role": "user"
+    },
+    {
+      "username": "Arbo",
+      "password": "12345",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "username": "Hamida",
+      "password": "5678",
+      "role": "admin",
+      "id": 4
+    }
+  ],
   "urls": [
     {
       "id": 1,
@@ -30,5 +56,6 @@
       "domain": "securelogin.safeweb.org",
       "verdict": "safe"
     }
-  ]
+  ],
+  "auditLogs": []
 }

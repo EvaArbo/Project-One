@@ -1,3 +1,25 @@
+:root {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --box-color: #1e1e1e;
+  --accent-color: #03dac5;
+  --border-color: #333;
+  --error: #b71c1c;
+  --warning: #ff6f00;
+  --success: #1b5e20;
+}
+
+body.light {
+  --bg-color: #f9f9f9;
+  --text-color: #222;
+  --box-color: #fff;
+  --accent-color: #6200ee;
+  --border-color: #ccc;
+  --error: #ffcdd2;
+  --warning: #ffe0b2;
+  --success: #c8e6c9;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,108 +27,254 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Segoe UI", sans-serif;
   line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.app-container {
-  width: 95%;
-  max-width: 600px;
   padding: 2rem;
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header {
+/* ========== Forms & Auth ========== */
+.auth-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background: var(--box-color);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
   text-align: center;
-  margin-bottom: 2rem;
 }
 
-header h1 {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #03dac5;
-}
-
-.input-section {
+.auth-container form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-input[type="text"] {
-  padding: 1rem;
+.auth-container input,
+.auth-container select,
+.auth-container button {
+  padding: 0.8rem;
+  border-radius: 6px;
   font-size: 1rem;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #2a2a2a;
-  color: #f5f5f5;
+  border: 1px solid var(--border-color);
 }
 
-input[type="text"]::placeholder {
-  color: #999;
-}
-
-button {
-  padding: 1rem;
-  font-size: 1rem;
-  background-color: #03dac5;
+.auth-container button {
+  background: var(--accent-color);
   color: #000;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-container button:hover {
+  opacity: 0.9;
+}
+
+/* ========== Main App Layout ========== */
+.app-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: var(--box-color);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+header h1 {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+}
+
+.extra-controls button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  background: var(--accent-color);
+  color: #000;
+  transition: 0.3s ease;
 }
 
-button:hover {
-  background-color: #00bfa5;
+.extra-controls button:hover {
+  opacity: 0.9;
 }
 
+/* ========== Inputs & Check Section ========== */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
 
-#result-box {
-  margin-top: 2rem;
+.input-section input {
   padding: 1rem;
   border-radius: 8px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.input-section button {
+  background: var(--accent-color);
+  color: #000;
   font-weight: bold;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.input-section button:hover {
+  opacity: 0.9;
+}
+
+/* ========== Result Box ========== */
+#result-box {
+  padding: 1rem;
+  border-radius: 8px;
   text-align: center;
+  font-weight: bold;
+  transition: all 0.4s ease-in-out;
 }
 
 .result-success {
-  background-color: #1b5e20;
-  color: #b9f6ca;
+  background-color: var(--success);
 }
 
 .result-warning {
-  background-color: #ff6f00;
-  color: #fff3e0;
+  background-color: var(--warning);
 }
 
 .result-error {
-  background-color: #b71c1c;
-  color: #ffcdd2;
+  background-color: var(--error);
+  color: #fff;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
+.fade {
+  animation: fadeIn 0.5s ease-in-out;
+}
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== Spinner ========== */
+#spinner {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+/* ========== History Section ========== */
+.history-section {
+  margin-top: 2rem;
+}
+
+.history-section h2 {
+  margin-bottom: 1rem;
+}
+
+.history-section input {
+  padding: 0.7rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.history-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.history-actions button {
+  padding: 0.6rem 1rem;
+  background: var(--accent-color);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#history-list {
+  list-style: none;
+  padding: 0;
+}
+
+#history-list li {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ========== Analytics ========== */
+.analytics-section {
+  margin-top: 2rem;
+}
+
+.analytics-section h2 {
+  margin-bottom: 1rem;
+}
+
+/* ========== Admin Section ========== */
+#admin-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px dashed red;
+  border-radius: 8px;
+}
+
+/* ========== Footer ========== */
 footer {
   margin-top: 2rem;
   text-align: center;
-  font-size: 0.8rem;
-  color: #888;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
-footer a {
-  color: #03dac5;
-  text-decoration: none;
+/* ========== Responsive ========== */
+@media (max-width: 600px) {
+  .extra-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .input-section input,
+  .input-section button {
+    width: 100%;
+  }
 }
