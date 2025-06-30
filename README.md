@@ -113,6 +113,30 @@ To scale this into a production-grade phishing scanner:
 - 📊 Save scan history to a real database
 - 👥 Add user login and dashboards
 
+## 🆕 New Features Added
+
+- ✅ **User Registration and Login System**  
+  Users can register with roles (`admin` or `user`) and log in with saved credentials.
+
+- 🧑‍💼 **Role-Based Access (Admin vs User)**  
+  Admin users gain access to a secure Admin Panel.
+
+- 👑 **Admin Panel Functionality**
+  - Manage users (load list of all users).
+  - Add new phishing domains with verdicts (safe, suspicious, malicious).
+  - View audit logs of changes.
+
+- 📜 **Audit Logs**  
+  Tracks admin actions like domain additions and user management activities.
+
+- 📦 **CSV Export of URL History**  
+  Easily download history of scanned URLs.
+
+- 🌙/🌞 **Dark Mode & Light Mode Toggle**
+
+- 📱 **Responsive Design**  
+  Fully functional on mobile and desktop devices.
+
 
 ## 👩‍💻 Built By
 

@@ -23,6 +23,12 @@
       "password": "5678",
       "role": "admin",
       "id": 4
+    },
+    {
+      "username": "jess",
+      "password": "abcd",
+      "role": "user",
+      "id": 5
     }
   ],
   "urls": [
@@ -55,7 +61,19 @@
       "id": 6,
       "domain": "securelogin.safeweb.org",
       "verdict": "safe"
+    },
+    {
+      "domain": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+      "verdict": "safe",
+      "id": 7
     }
   ],
-  "auditLogs": []
+  "auditLogs": [
+    {
+      "action": "Added domain: https://getbootstrap.com/docs/5.3/getting-started/introduction/ (safe)",
+      "by": "Hamida",
+      "time": "6/30/2025, 7:13:25 PM",
+      "id": 1
+    }
+  ]
 }
